@@ -1,12 +1,42 @@
-interface imgProps {
-  img: string;
-  imgAlt: string;
-}
+import { useRoute } from "wouter";
+import { usePlanet } from "../hooks";
 
-export const PlanetImage = ({ img, imgAlt }: imgProps) => {
+export const PlanetImage = () => {
+  const { planet } = usePlanet();
+  const [, params] = useRoute("/planets/:planetName/:detailName");
+  const name: string = planet?.name;
+  const planetImages = planet?.images;
+  const planetGeologyImages = planetImages?.geology;
+  const dataImages = {
+    overview: planetImages?.planet,
+    "internal-structure": planetImages?.internal,
+    "surface-geology": planetImages?.planet,
+  };
+
+  const [detailName, images] = Object.entries(dataImages).filter(
+    ([title, value]) => params?.detailName.includes(title) && value
+  )[0];
+
   return (
-    <picture>
-      <img src={img} alt={imgAlt} />
-    </picture>
+    <div className="grid col-span-12 h-[260px] md:h-[426px] lg:col-span-7 lg:h-[670px] relative">
+      <picture className="flex items-center justify-center">
+        <source srcSet={images.large} media="(min-width: 1024px)"></source>
+        <source srcSet={images.medium} media="(min-width: 768px)"></source>
+        <img src={images.small} alt={`planet ${name}`} />
+      </picture>
+      {detailName === "surface-geology" && (
+        <picture className="absolute top-[75%] left-[50%] -translate-x-1/2 -translate-y-1/2">
+          <source
+            srcSet={planetGeologyImages.large}
+            media="(min-width: 1024px)"
+          ></source>
+          <source
+            srcSet={planetGeologyImages.medium}
+            media="(min-width: 768px)"
+          ></source>
+          <img src={planetGeologyImages.small} alt={detailName} />
+        </picture>
+      )}
+    </div>
   );
 };
