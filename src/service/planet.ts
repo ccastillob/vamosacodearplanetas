@@ -1,6 +1,6 @@
 import { Planet } from "@planet/types";
 
-const URL = "https://api-planets.onrender.com/api/planet";
+const URL = import.meta.env.VITE_API_URL;
 
 interface Response {
   planet?: Planet;
