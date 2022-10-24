@@ -14,7 +14,7 @@ export const MenuPlanets = () => {
           the planets
         </h1>
         <ImageIcon
-          src={`/icon-hamburger-${showMenu ? "open" : "close"}.svg`}
+          src={`/assets/icon-hamburger-${showMenu ? "open" : "close"}.svg`}
           className="cursor-pointer w-6 h-4 md:hidden"
           altImage="icono de menú para celulares"
           eventClick={toggleMenu}
