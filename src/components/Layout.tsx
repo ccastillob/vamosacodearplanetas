@@ -1,5 +1,5 @@
 import { MenuPlanets } from ".";
-import { PlanetMain } from "./PlanetMain";
+import { PlanetMain, LoadingSpinner, ErrorPage, NotFoundPlanet } from "./";
 import { PlanetState } from "@planet/types";
 
 interface LayoutProps {
@@ -10,7 +10,6 @@ interface LayoutProps {
   loading: boolean;
 }
 
-// TODO: Layout components
 export const Layout = ({
   isNotFound,
   messageData,
@@ -18,13 +17,13 @@ export const Layout = ({
   loading,
 }: LayoutProps) => {
   if (isNotFound) {
-    return <h1 className="text-white">{messageData}</h1>;
+    return <NotFoundPlanet message={messageData} />;
   }
 
   return isError ? (
-    <h1 className="text-white">{messageData}</h1>
+    <ErrorPage message={messageData} />
   ) : loading ? (
-    <h1 className="text-white">Cargando...</h1>
+    <LoadingSpinner />
   ) : (
     <>
       <MenuPlanets />

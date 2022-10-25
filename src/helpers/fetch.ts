@@ -21,6 +21,6 @@ export const fetchData = async (
       };
     })
     .catch(() => {
-      return new Error(`Ocurrio un error inesperado`);
+      return new Error(`Unexpected error, please try again`);
     });
 };
