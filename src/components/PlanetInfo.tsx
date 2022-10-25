@@ -4,14 +4,14 @@ import { InfoContent } from "./InfoContent";
 import { PlanetButton } from "./PlanetButton";
 
 export const PlanetInfo = () => {
-  const { planet } = usePlanet();
+  const { planetCurrent } = usePlanet();
   const [, params] = useRoute("/planets/:planetName/:characteristicName");
 
-  const name = planet?.name;
+  const name = planetCurrent?.name;
   const dataButtons = {
-    overview: planet?.overview,
-    "internal-structure": planet?.structure,
-    "surface-geology": planet?.geology,
+    overview: planetCurrent?.overview,
+    "internal-structure": planetCurrent?.structure,
+    "surface-geology": planetCurrent?.geology,
   };
   const [characteristicName, dataCharacteristic] = Object.entries(
     dataButtons

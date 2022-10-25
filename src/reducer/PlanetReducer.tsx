@@ -1,59 +1,49 @@
-import {
-  PlanetActionHandle,
-  PlanetActionProps,
-  PlanetHandlers,
-  PlanetContextProps,
-} from "@planet/context";
-import { PlanetActions } from "../actions/PlanetActions";
+import { PlanetState, reducerPlanetState } from "@planet/types";
+import { INIT_STATE } from "../context/PlanetProvider";
 
-const initialState = {
-  planet: undefined,
-  isLoad: false,
-  isError: false,
-  errorMessage: "",
-};
-
-const handlers: PlanetHandlers = {};
-
-const handleLoadPlanet: PlanetActionHandle = (state, action) => {
-  return {
-    ...state,
-    isLoad: true,
-  };
-};
-const handlePlanetSuccess: PlanetActionHandle = (state, action) => {
-  return {
-    ...state,
-    isLoad: false,
-    isError: false,
-    planet: action.payload,
-  };
-};
-
-const handlePlanetError: PlanetActionHandle = (state, action) => {
-  return {
-    ...state,
-    isLoad: false,
-    isError: true,
-    planet: null,
-  };
-};
-
-handlers[PlanetActions.LOAD_PLANET] = handleLoadPlanet;
-handlers[PlanetActions.LOAD_PLANET_SUCCESS] = handlePlanetSuccess;
-handlers[PlanetActions.LOAD_PLANET_ERROR] = handlePlanetError;
-
-function reducerFactory(
-  initialState: PlanetContextProps,
-  handlers: PlanetHandlers
-) {
-  return function (state = initialState, action: PlanetActionProps) {
-    const handler = handlers[action.type];
-    if (handler) {
-      return handler(state, action);
+type PlanetAction =
+  | {
+      type: "PLANET_LOAD";
+      payload: PlanetState;
     }
-    return state;
-  };
-}
-const PlanetReducer = reducerFactory(initialState, handlers);
-export { initialState, PlanetReducer };
+  | {
+      type: "PLANET_NOTFOUND";
+      payload: string;
+    }
+  | {
+      type: "PLANET_ERROR";
+      payload: string;
+    }
+  | {
+      type: "PLANET_CLEAR";
+    };
+
+export const planetReducer = (
+  state: reducerPlanetState,
+  action: PlanetAction
+) => {
+  switch (action.type) {
+    case "PLANET_LOAD":
+      return {
+        ...state,
+        loading: false,
+        planetCurrent: action.payload,
+      };
+    case "PLANET_NOTFOUND":
+      return {
+        ...state,
+        isNotFound: true,
+        messageData: action.payload,
+      };
+    case "PLANET_ERROR":
+      return {
+        ...state,
+        isError: true,
+        messageData: action.payload,
+      };
+    case "PLANET_CLEAR":
+      return INIT_STATE;
+    default:
+      return state;
+  }
+};

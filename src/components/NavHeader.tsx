@@ -6,11 +6,11 @@ import { usePlanet } from "../hooks";
 type NavHeaderProps = ClassProps;
 
 export const NavHeader = ({ className = "" }: NavHeaderProps) => {
-  const { planet } = usePlanet();
+  const { planetCurrent } = usePlanet();
 
   return (
     <>
-      {planet && (
+      {planetCurrent && (
         <nav className={className}>
           <ul className="flex">
             {planets.map((p: MenuPlanetItem) => {
@@ -18,7 +18,7 @@ export const NavHeader = ({ className = "" }: NavHeaderProps) => {
                 <li
                   key={p.name}
                   className={`${
-                    p.name === planet.name.toLowerCase()
+                    p.name === planetCurrent.name.toLowerCase()
                       ? `border-t-4 border-${p.name} md:pt-1 lg:pt-[29px]`
                       : "md:pt-2 lg:pt-[33px]"
                   } mx-4 first:ml-0 last:mr-0 font-spartan font-bold leading-25 tracking-1 lg:pb-[7px]`}

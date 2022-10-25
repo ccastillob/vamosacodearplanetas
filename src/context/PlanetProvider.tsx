@@ -1,42 +1,90 @@
-import { useEffect, useReducer } from "react";
+import { useReducer } from "react";
 import { PlanetContext } from "./PlanetContext";
-import { PlanetReducer, initialState } from "../reducer/PlanetReducer";
-import { PlanetActions } from "../actions/PlanetActions";
-import { ServicePlanets } from "../service/planet";
-import { PlanetProviderProps } from "@planet/context";
+import { planetReducer } from "../reducer/PlanetReducer";
+import { reducerPlanetState, PlanetState } from "@planet/types";
 
-const PlanetProvider = ({
-  planetName = "jupiter",
-  children,
-}: PlanetProviderProps) => {
-  // TODO: Opcional agregar localStorage para cachear los fetch
-  const [state, dispatch] = useReducer(PlanetReducer, initialState);
+export const INIT_STATE: reducerPlanetState = {
+  planetCurrent: {
+    name: "",
+    overview: {
+      content: "",
+      source: "",
+    },
+    structure: {
+      content: "",
+      source: "",
+    },
+    geology: {
+      content: "",
+      source: "",
+    },
+    rotation: "",
+    revolution: "",
+    radius: "",
+    temperature: "",
+    images: {
+      planet: {
+        small: "",
+        medium: "",
+        large: "",
+      },
+      internal: {
+        small: "",
+        medium: "",
+        large: "",
+      },
+      geology: {
+        small: "",
+        medium: "",
+        large: "",
+      },
+    },
+  },
+  isError: false,
+  isNotFound: false,
+  messageData: "",
+  loading: true,
+};
 
-  useEffect(() => {
-    (async () => {
-      dispatch({ type: PlanetActions.LOAD_PLANET });
-      const res = await ServicePlanets.get(planetName);
-      const { planet, error } = res;
-      if (error) {
-        dispatch({
-          type: PlanetActions.LOAD_PLANET_ERROR,
-          payload: error,
-        });
-      }
-      if (planet) {
-        dispatch({
-          type: PlanetActions.LOAD_PLANET_SUCCESS,
-          payload: planet,
-        });
-      }
-    })();
-  }, [planetName]);
+interface PlanetProviderProps {
+  children: JSX.Element | JSX.Element[];
+}
+
+export const PlanetProvider = ({ children }: PlanetProviderProps) => {
+  const [planet, dispatch] = useReducer(planetReducer, INIT_STATE);
+  const { planetCurrent, isError, messageData, isNotFound, loading } = planet;
+
+  const loadPlanets = (data: PlanetState) => {
+    dispatch({ type: "PLANET_LOAD", payload: data });
+  };
+
+  const notFoundPlanet = (message: string) => {
+    dispatch({ type: "PLANET_NOTFOUND", payload: message });
+  };
+
+  const errorPlanet = (message: string) => {
+    dispatch({ type: "PLANET_ERROR", payload: message });
+  };
+
+  const clearStatePlanet = () => {
+    dispatch({ type: "PLANET_CLEAR" });
+  };
 
   return (
-    <PlanetContext.Provider value={{ ...state }}>
+    <PlanetContext.Provider
+      value={{
+        planetCurrent,
+        loadPlanets,
+        isError,
+        notFoundPlanet,
+        messageData,
+        isNotFound,
+        errorPlanet,
+        loading,
+        clearStatePlanet,
+      }}
+    >
       {children}
     </PlanetContext.Provider>
   );
 };
-
-export { PlanetProvider };

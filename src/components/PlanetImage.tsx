@@ -2,10 +2,10 @@ import { useRoute } from "wouter";
 import { usePlanet } from "../hooks";
 
 export const PlanetImage = () => {
-  const { planet } = usePlanet();
+  const { planetCurrent } = usePlanet();
   const [, params] = useRoute("/planets/:planetName/:detailName");
-  const name: string = planet?.name;
-  const planetImages = planet?.images;
+  const name: string = planetCurrent?.name;
+  const planetImages = planetCurrent?.images;
   const planetGeologyImages = planetImages?.geology;
   const dataImages = {
     overview: planetImages?.planet,

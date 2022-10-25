@@ -4,9 +4,9 @@ import { Line } from "./Line";
 import { Tab } from "./Tab";
 
 export const PlanetTabs = () => {
-  const { planet } = usePlanet();
+  const { planetCurrent } = usePlanet();
   const [, params] = useRoute("/planets/:planetName/:characteristicName");
-  const name = planet?.name;
+  const name = planetCurrent?.name;
 
   const dataTabs = {
     overview: "overview",

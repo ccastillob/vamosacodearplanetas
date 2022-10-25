@@ -2,12 +2,12 @@ import { usePlanet } from "../hooks";
 import { CardInfo } from "./CardInfo";
 
 export const PlanetCardInfo = () => {
-  const { planet } = usePlanet();
+  const { planetCurrent } = usePlanet();
   const info = {
-    "ROTATION TIME": planet?.rotation,
-    "REVOLUTION TIME": planet?.revolution,
-    RADIUS: planet?.radius,
-    "AVERAGE TEMP.": planet?.temperature,
+    "ROTATION TIME": planetCurrent?.rotation,
+    "REVOLUTION TIME": planetCurrent?.revolution,
+    RADIUS: planetCurrent?.radius,
+    "AVERAGE TEMP.": planetCurrent?.temperature,
   };
 
   return (

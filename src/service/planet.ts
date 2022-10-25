@@ -1,25 +1,21 @@
-import { Planet } from "@planet/types";
+import { fetchData } from "../helpers/fetch";
 
-const URL = import.meta.env.VITE_API_URL;
+export const getPlanet = async (namePlanet: string) => {
+  return await fetchPlanet(namePlanet)
+    .then((data) => {
+      return data;
+    })
+    .catch((err: Error) => {
+      throw new Error(err.message);
+    });
+};
 
-interface Response {
-  planet?: Planet;
-  error?: string;
-}
+const fetchPlanet = async (namePlanet: string) => {
+  const response = await fetchData(`${namePlanet}`);
 
-function getErrorMessage(error: unknown) {
-  if (error instanceof Error) return error.message;
-  return String(error);
-}
+  if (response instanceof Error) {
+    throw new Error(response.message);
+  }
 
-export const ServicePlanets = {
-  get: async function (name: string): Promise<Response> {
-    try {
-      const response = await fetch(`${URL}/${name}`);
-      const planet: Planet = await response.json();
-      return { planet };
-    } catch (e) {
-      return { error: getErrorMessage(e) };
-    }
-  },
+  return response;
 };
