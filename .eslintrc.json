@@ -17,7 +17,8 @@
     "vscode/",
     "src/vite-env.d.ts",
     "vite.config.ts",
-    "commitlint.config.js"
+    "commitlint.config.js",
+    "jest.setup.js"
   ],
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -35,7 +36,8 @@
     "@typescript-eslint/no-floating-promises": "off",
     "no-extra-boolean-cast": "off",
     "@typescript-eslint/consistent-type-assertions": "off",
-    "no-var": "error"
+    "no-var": "error",
+    "@typescript-eslint/no-unused-expressions": "off"
   },
   "settings": {
     "react": {

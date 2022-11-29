@@ -1,6 +1,8 @@
 import { responsePlanet } from "@planet/types";
+import { getEnvironments } from "./getEnvironments";
 
-const baseURL = import.meta.env.VITE_API_URL;
+const { VITE_API_URL } = getEnvironments();
+const baseURL = VITE_API_URL;
 
 export const fetchData = async (
   endpoint: string
