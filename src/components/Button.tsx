@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 
-interface ButtonProp {
+export interface ButtonProp {
   title: string;
   name: string;
   characteristicName: string;
