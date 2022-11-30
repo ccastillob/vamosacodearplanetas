@@ -1,7 +1,7 @@
 import { ContentPlanet } from "@planet/types";
 import { ImageIcon } from "./ImageIcon";
 
-interface InfoContentProps {
+export interface InfoContentProps {
   dataCharacteristic: ContentPlanet;
   namePlanet: string;
 }
