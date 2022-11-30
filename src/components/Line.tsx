@@ -1,6 +1,9 @@
-interface LineProps {
+export interface LineProps {
   className?: string;
 }
 export const Line = ({ className = "" }: LineProps) => (
-  <div className={`h-px ${className} bg-gray`}></div>
+  <div
+    data-testid="line-component"
+    className={`h-px ${className} bg-gray`}
+  ></div>
 );
