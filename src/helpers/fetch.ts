@@ -22,7 +22,5 @@ export const fetchData = async (
         status: data.status,
       };
     })
-    .catch(() => {
-      return new Error(`Unexpected error, please try again`);
-    });
+    .catch(() => new Error(`Unexpected error, please try again`));
 };
