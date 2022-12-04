@@ -16,8 +16,8 @@ describe("Pruebas en el componente <PlanetImage />", () => {
 
   test("debe de mostrar la imagen del planeta y solo debe haber un solo img", () => {
     const objectRouteOverview = {
-      planetName: "jupiter",
-      detailName: "overview",
+      planetName: "Earth",
+      characteristicName: "overview",
     };
 
     mockedPlanet.mockReturnValue({
@@ -35,18 +35,18 @@ describe("Pruebas en el componente <PlanetImage />", () => {
     render(<PlanetImage />);
 
     const elementImageOverview: HTMLImageElement = screen.getByRole("img", {
-      name: /jupiter/i,
+      name: /earth/i,
     });
 
     expect(elementImageOverview).toBeTruthy();
-    expect(elementImageOverview.src).toContain("planet-jupiter");
+    expect(elementImageOverview.src).toContain("planet-earth");
     expect(screen.getAllByRole("img").length).toBe(1);
   });
 
   test("debe de mostrar la imagen del planeta y debe haber dos img", () => {
     const objectRouteSurfaceGeology = {
-      planetName: "jupiter",
-      detailName: "surface-geology",
+      planetName: "Earth",
+      characteristicName: "surface-geology",
     };
 
     mockedPlanet.mockReturnValue({
@@ -64,7 +64,7 @@ describe("Pruebas en el componente <PlanetImage />", () => {
     render(<PlanetImage />);
 
     const elementImageOverview: HTMLImageElement = screen.getByRole("img", {
-      name: /jupiter/i,
+      name: /earth/i,
     });
     const elementImageSurfaceGeology: HTMLImageElement = screen.getByRole(
       "img",
@@ -72,9 +72,9 @@ describe("Pruebas en el componente <PlanetImage />", () => {
     );
 
     expect(elementImageOverview).toBeTruthy();
-    expect(elementImageOverview.src).toContain("planet-jupiter");
+    expect(elementImageOverview.src).toContain("planet-earth");
     expect(elementImageSurfaceGeology).toBeTruthy();
-    expect(elementImageSurfaceGeology.src).toContain("geology-jupiter");
+    expect(elementImageSurfaceGeology.src).toContain("geology-earth");
     expect(screen.getAllByRole("img").length).toBe(2);
   });
 });

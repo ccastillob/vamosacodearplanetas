@@ -1,9 +1,1 @@
-require("isomorphic-fetch");
-
-require("dotenv").config({
-  path: ".env.test.local",
-});
-
-jest.mock("./src/helpers/getEnvironments", () => ({
-  getEnvironments: () => ({ ...process.env }),
-}));
+require("@testing-library/jest-dom/extend-expect");
