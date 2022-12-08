@@ -1,6 +1,6 @@
-interface ParamsProps {
+type ParamsProps = {
   characteristicName: string;
-}
+} | null;
 
 export const isValidPathCharacteristic = (path: ParamsProps): boolean => {
   const listCharacteristics = [
