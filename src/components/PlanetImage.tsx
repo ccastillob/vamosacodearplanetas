@@ -3,7 +3,7 @@ import { usePlanet } from "../hooks";
 
 export const PlanetImage = () => {
   const { planetCurrent } = usePlanet();
-  const [, params] = useRoute("/planets/:planetName/:detailName");
+  const [, params] = useRoute("/planets/:planetName/:characteristicName");
   const name: string = planetCurrent?.name;
   const planetImages = planetCurrent?.images;
   const planetGeologyImages = planetImages?.geology;
@@ -13,8 +13,8 @@ export const PlanetImage = () => {
     "surface-geology": planetImages?.planet,
   };
 
-  const [detailName, images] = Object.entries(dataImages).filter(
-    ([title, value]) => params?.detailName.includes(title) && value
+  const [characteristicName, images] = Object.entries(dataImages).filter(
+    ([title, value]) => params?.characteristicName.includes(title) && value
   )[0];
 
   return (
@@ -24,7 +24,7 @@ export const PlanetImage = () => {
         <source srcSet={images.medium} media="(min-width: 768px)"></source>
         <img src={images.small} alt={`planet ${name}`} />
       </picture>
-      {detailName === "surface-geology" && (
+      {characteristicName === "surface-geology" && (
         <picture className="absolute top-[75%] left-[50%] -translate-x-1/2 -translate-y-1/2">
           <source
             srcSet={planetGeologyImages.large}
@@ -34,7 +34,7 @@ export const PlanetImage = () => {
             srcSet={planetGeologyImages.medium}
             media="(min-width: 768px)"
           ></source>
-          <img src={planetGeologyImages.small} alt={detailName} />
+          <img src={planetGeologyImages.small} alt={characteristicName} />
         </picture>
       )}
     </div>
