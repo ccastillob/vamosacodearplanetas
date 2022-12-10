@@ -35,7 +35,8 @@
     "@typescript-eslint/no-floating-promises": "off",
     "no-extra-boolean-cast": "off",
     "@typescript-eslint/consistent-type-assertions": "off",
-    "no-var": "error"
+    "no-var": "error",
+    "@typescript-eslint/no-unused-expressions": "off"
   },
   "settings": {
     "react": {
