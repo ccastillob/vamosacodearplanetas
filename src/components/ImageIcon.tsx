@@ -1,7 +1,7 @@
 interface ImageIconProps {
   src: string;
-  className: string;
-  altImage: string;
+  className?: string;
+  altImage?: string;
   eventClick?: () => void;
 }
 
