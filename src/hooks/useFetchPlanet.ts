@@ -27,20 +27,16 @@ export const useFetchPlanet = () => {
 
   useEffect(() => {
     if (params) {
-      getPlanet(params?.planetName.toLowerCase())
-        .then(({ data, status, msg }) => {
-          if (status === 404 && msg) {
-            return notFoundPlanet(msg);
+      getPlanet(params?.planetName.toLowerCase()).then(
+        ({ data, status, msg }) => {
+          if (msg) {
+            return status === 404 ? notFoundPlanet(msg) : errorPlanet(msg);
           }
 
-          if (data) {
-            clearStatePlanet();
-            return loadPlanets(data);
-          }
-        })
-        .catch((err: Error) => {
-          errorPlanet(err.message);
-        });
+          clearStatePlanet();
+          return data && loadPlanets(data);
+        }
+      );
     }
   }, [params?.planetName]);
 
