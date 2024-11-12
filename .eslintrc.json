@@ -19,7 +19,12 @@
     "vite.config.ts",
     "commitlint.config.js",
     "jest.setup.js",
-    "custom.setup.js"
+    "custom.setup.js",
+    "postcss.config.cjs",
+    "tailwind.config.cjs",
+    "commitlint.config.ts",
+    "babel.config.cjs",
+    "eslint.config.mjs"
   ],
   "parserOptions": {
     "ecmaVersion": "latest",
